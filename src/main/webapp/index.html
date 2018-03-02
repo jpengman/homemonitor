@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name=apple-mobile-web-app-status-bar-style content=black>
+<link rel="apple-touch-icon" href="img/apple-touch-icon.png">
+<link rel="apple-touch-startup-image" href="img/launchscreen.png">
+
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" href="styles/bootstrap.min.css">
+
+<!-- Font Awesome -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+</style>
+<title>Home Monitor</title>
+</head>
+<body>
+	<script type="text/javascript"
+		src="https://www.gstatic.com/charts/loader.js"></script>
+	<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+	<!-- Navbar -->
+	<nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+		<button class="navbar-toggler" type="button" data-toggle="collapse"
+			data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup"
+			aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<a class="navbar-brand" href="#">HomeMonitor</a>
+		<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+			<ul class="navbar-nav">
+				<li class="nav-item dropdown"><a
+					class="nav-link dropdown-toggle" data-toggle="dropdown"
+					data-target="dropdown_heating" href="#">Uppvärmning<span
+						class="caret"></span></a>
+					<div class="dropdown-menu" aria-labelledby="dropdown_heating">
+						<a class="dropdown-item" href="#stove">Vedspisen</a> <a
+							class="dropdown-item" href="#vp" id="vp_btn">Värmepumpen</a> <a
+							class="dropdown-item" href="#acc" id="acc_btn">Ackumulatortanken</a>
+						<a class="dropdown-item" href="#floor" id="floor_btn">Golvvärmen</a>
+						<a class="dropdown-item" href="#tanks" id="tanks_btn">Systemet</a>
+					</div>
+				<li class="nav-item"><a class="nav-link" href="#">test</a></li>
+			</ul>
+		</div>
+	</nav>
+
+	<!-- Main View -->
+	<div class="text-center">
+		<div id="content"></div>
+		<input type="range" min="60" max="1440" value="360" step="60"
+			id="chart_range" style.display='none'>
+		<div id="range_output" style.display='none'>6 Timmar</div>
+	</div>
+	
+	<script src="scripts/vendor/jquery-3.3.1.min.js"></script>
+	<script	src="scripts/vendor/bootstrap.bundle.min.js"></script>
+	
+	<script src="scripts/chartRangeHandler.js"></script>
+   	<script src="scripts/contentHandler.js"></script>
+    <script src="scripts/initiateVariables.js"></script>
+	<script src="scripts/routing.js"></script>
+</body>
+</html>
