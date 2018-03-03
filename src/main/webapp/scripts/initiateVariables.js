@@ -12,6 +12,8 @@ var content='tanks';
 var baseurl='../OWManager-0.0.1-SNAPSHOT/rest/data/';
 var requestByID = 'getdatatable/';
 var requestByType = 'getdatatablebytype/';
+var requestMinMaxAvg = 'getminavgmax/';
 var request='';
 var time="360";
 var timer = setInterval(drawContent,60000);
+hideCog();

@@ -14,9 +14,10 @@
           		}).responseText;
     		var data = new google.visualization.DataTable(jsonData);
     		var chart = new google.visualization.LineChart(chartDiv);	
-      		chart.draw(data, options);
+    		chart.draw(data, options);
     }
-function drawTanks() {			
+ 
+ function drawTanks() {			
 	var accsvg = $.ajax({
 	 	url: "../OWManager-0.0.1-SNAPSHOT/rest/svg/heating",
 		dataType:"svg",
@@ -35,8 +36,12 @@ function drawContent(){
 	else if(content=='chartByType'){
 		drawChart(baseurl+requestByType+request+'/'+time,'content',options);
 		showSlider(); 
-	}else {
-		 drawTanks();
+	}else if(content=='MinMaxAvg'){
+		drawChart(baseurl+requestMinMaxAvg+request+'/14','content',options);
+		hideSlider();
+	}
+	else {	 
+		drawTanks();
 		 hideSlider();
 		}		
 }

@@ -11,9 +11,9 @@
 <!-- Bootstrap CSS -->
 <link rel="stylesheet" href="styles/bootstrap.min.css">
 
-<!-- Font Awesome -->
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<script defer
+	src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+
 
 </style>
 <title>Home Monitor</title>
@@ -43,6 +43,17 @@
 						<a class="dropdown-item" href="#floor" id="floor_btn">Golvvärmen</a>
 						<a class="dropdown-item" href="#tanks" id="tanks_btn">Systemet</a>
 					</div>
+				<li class="nav-item dropdown"><a
+					class="nav-link dropdown-toggle" data-toggle="dropdown"
+					data-target="dropdown_outside" href="#">Utomhus<span
+						class="caret"></span></a>
+					<div class="dropdown-menu" aria-labelledby="dropdown_outside">
+						<a class="dropdown-item" href="#outside_now">Just Nu</a> <a
+							class="dropdown-item" href="#outside_days">Dagar</a> <a
+							class="dropdown-item" href="#outside_weeks" id ="outside_weeks">Veckor</a> <a
+							class="dropdown-item" href="#outside_months">Månader</a> <a
+							class="dropdown-item" href="#outside_years">År</a>
+					</div>
 				<li class="nav-item"><a class="nav-link" href="#">test</a></li>
 			</ul>
 		</div>
@@ -50,18 +61,22 @@
 
 	<!-- Main View -->
 	<div class="text-center">
-		<div id="content"></div>
+		<div id="content" style.display='none'></div>
 		<input type="range" min="60" max="1440" value="360" step="60"
 			id="chart_range" style.display='none'>
 		<div id="range_output" style.display='none'>6 Timmar</div>
+		<!--div id="cog" class="fas fa-cog fa-spin fa-10x"></div>
+		<button onclick="hideCog()">Hide</button>
+		<button onclick="showCog()">Show</button-->
 	</div>
-	
+
+
 	<script src="scripts/vendor/jquery-3.3.1.min.js"></script>
-	<script	src="scripts/vendor/bootstrap.bundle.min.js"></script>
-	
+	<script src="scripts/vendor/bootstrap.bundle.min.js"></script>
+
 	<script src="scripts/chartRangeHandler.js"></script>
-   	<script src="scripts/contentHandler.js"></script>
-    <script src="scripts/initiateVariables.js"></script>
+	<script src="scripts/contentHandler.js"></script>
+	<script src="scripts/initiateVariables.js"></script>
 	<script src="scripts/routing.js"></script>
 </body>
 </html>
