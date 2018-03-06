@@ -9,6 +9,7 @@ var options = {
 		vAxis: {textPosition: 'in'}
 	};
 var content='tanks';
+var contentHeader='';
 var baseurl='../OWManager-0.0.1-SNAPSHOT/rest/data/';
 var requestByID = 'getdatatable/';
 var requestByType = 'getdatatablebytype/';
@@ -16,4 +17,3 @@ var requestMinMaxAvg = 'getminavgmax/';
 var request='';
 var time="360";
 var timer = setInterval(drawContent,60000);
-hideCog();

@@ -10,6 +10,7 @@
 
 <!-- Bootstrap CSS -->
 <link rel="stylesheet" href="styles/bootstrap.min.css">
+<link rel="stylesheet" href="styles/slider.css">
 
 <script defer
 	src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
@@ -50,8 +51,8 @@
 					<div class="dropdown-menu" aria-labelledby="dropdown_outside">
 						<a class="dropdown-item" href="#outside_now">Just Nu</a> <a
 							class="dropdown-item" href="#outside_days">Dagar</a> <a
-							class="dropdown-item" href="#outside_weeks" id ="outside_weeks">Veckor</a> <a
-							class="dropdown-item" href="#outside_months">Månader</a> <a
+							class="dropdown-item" href="#outside_weeks" id="outside_weeks">Veckor</a>
+						<a class="dropdown-item" href="#outside_months">Månader</a> <a
 							class="dropdown-item" href="#outside_years">År</a>
 					</div>
 				<li class="nav-item"><a class="nav-link" href="#">test</a></li>
@@ -59,17 +60,26 @@
 		</div>
 	</nav>
 
-	<!-- Main View -->
-	<div class="text-center">
-		<div id="content" style.display='none'></div>
-		<input type="range" min="60" max="1440" value="360" step="60"
-			id="chart_range" style.display='none'>
-		<div id="range_output" style.display='none'>6 Timmar</div>
-		<!--div id="cog" class="fas fa-cog fa-spin fa-10x"></div>
-		<button onclick="hideCog()">Hide</button>
-		<button onclick="showCog()">Show</button-->
+	<!-- Controlls -->
+	<div class="container text-center">
+		<h5 id="content_header"></h5>
+		<div id="content" style.display="none"></div>
+		<div class="row text-center">
+			<div class="col">
+				<input type="range" min="60" max="1440" value="360" step="60"
+					id="chart_range" class="slider form-control" style.display="block">
+			</div>
+		</div>
+		<div class="row text-center">
+			<div class="col">
+				<div id="range_output" style.display='none'>6 Timmar</div>
+			</div>
+		</div>
 	</div>
 
+	<!--div id="cog" class="fas fa-cog fa-spin fa-10x"></div>
+	<button onclick="hideCog()">Hide</button>
+	<button onclick="showCog()">Show</button-->
 
 	<script src="scripts/vendor/jquery-3.3.1.min.js"></script>
 	<script src="scripts/vendor/bootstrap.bundle.min.js"></script>

@@ -28,7 +28,7 @@
 		}).responseText;
 	document.getElementById('content').innerHTML = accsvg;
 }
-function drawContent(){
+ function drawContent(){
 	if(content=='chartByID'){
 		drawChart(baseurl+requestByID+request+'/'+time,'content',options);
 		showSlider(); 
@@ -43,5 +43,13 @@ function drawContent(){
 	else {	 
 		drawTanks();
 		 hideSlider();
-		}		
+		}
+	document.getElementById('content_header').innerHTML = contentHeader;
 }
+ function drawContentWith(contentIn,contentHeaderIn,requestIn){
+	content=contentIn;
+	contentHeader=contentHeaderIn;
+	request=requestIn;
+	drawContent();
+}
+
