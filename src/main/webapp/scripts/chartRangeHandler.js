@@ -9,7 +9,7 @@ function hideSlider(){
 	document.getElementById("range_output").style.display = 'none';
 	document.getElementById("chart_range").style.display = 'none';	
 }
-$('#chart_range').change(function () {time = document.getElementById('chart_range').value; drawContent(); });
+$('#chart_range').change(function () {time = document.getElementById('chart_range').value; drawContentTimer(); });
 document.getElementById("chart_range").oninput = function() {
 	time = this.value
 	var hours = this.value/60;

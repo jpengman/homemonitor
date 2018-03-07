@@ -10,10 +10,12 @@ var options = {
 	};
 var content='tanks';
 var contentHeader='';
-var baseurl='../OWManager-0.0.1-SNAPSHOT/rest/data/';
-var requestByID = 'getdatatable/';
-var requestByType = 'getdatatablebytype/';
-var requestMinMaxAvg = 'getminavgmax/';
+var baseurl='../OWManager-0.0.1-SNAPSHOT/rest/';
+var requestByID = 'data/getdatatable/';
+var requestByType = 'data/getdatatablebytype/';
+var requestMinMaxAvg = 'data/getminavgmax/';
 var request='';
 var time="360";
-var timer = setInterval(drawContent,60000);
+var timer = null;
+var dataFetched= false;
+var jsonData = '';
