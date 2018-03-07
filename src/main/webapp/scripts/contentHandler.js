@@ -38,6 +38,7 @@ function drawTanks() {
 	document.getElementById('content').innerHTML = accsvg;
 }
 function drawContent() {
+	//Drawing content
 	if (content == 'chartByID') {
 		drawChart(requestByID + request + '/' + time, 'content', options);
 		showSlider();
@@ -51,6 +52,13 @@ function drawContent() {
 		drawTanks();
 		hideSlider();
 	}
+	//Enable/disable Timer
+	if(content=='MinMaxAvg'){
+		timer=null;
+	}else{
+		setInterval(drawContentTimer, 60000);
+	}
+	//Set Content Header
 	document.getElementById('content_header').innerHTML = contentHeader;
 }
 function drawContentWith(contentIn, contentHeaderIn, requestIn) {
@@ -65,4 +73,3 @@ function drawContentTimer() {
 	drawContent();
 }
 $(window).on('resize', drawContent);
-timer = setInterval(drawContentTimer, 60000);

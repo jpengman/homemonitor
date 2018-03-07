@@ -17,3 +17,5 @@ document.getElementById("chart_range").oninput = function() {
 	if(hours==1){hoursString= ' Timme';}
 	document.getElementById("range_output").innerHTML = hours+hoursString;
 }
+//Hide Slider initially
+hideSlider();
