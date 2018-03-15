@@ -62,7 +62,7 @@ function drawContent() {
 		drawChart(requestByType + request + '/' + time, options);
 		showSlider();
 	} else if (content == 'MinMaxAvg') {
-		drawChart(requestMinMaxAvg + request + '/14', options);
+		drawChart(requestMinMaxAvg + request+ '/', options);
 		hideSlider();
 	} else if (content == 'tanks') {
 		drawTanks();
