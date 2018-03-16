@@ -61,8 +61,8 @@ function drawContent() {
 	} else if (content == 'chartByType') {
 		drawChart(requestByType + request + '/' + time, options);
 		showSlider();
-	} else if (content == 'MinMaxAvg') {
-		drawChart(requestMinMaxAvg + request+ '/', options);
+	} else if (content == 'OutsideHistory') {
+		drawChart(requestOutsideHistory + request+ '/', options);
 		hideSlider();
 	} else if (content == 'tanks') {
 		drawTanks();
@@ -70,7 +70,7 @@ function drawContent() {
 	}
 	// Enable/disable Timer
 	clearInterval(timer);
-	if (content != 'MinMaxAvg') {
+	if (content != 'OutsideHistory') {
 			timer = setInterval(drawContentTimer, 60000);
 	}
 	// Set Content Header

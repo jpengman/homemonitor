@@ -23,16 +23,16 @@ var checkHash= function () {
     	drawContentWith('chartByType','Utomhustemperaturen','OUTSIDE');
     	break;
     case "#outside_days":
-    	drawContentWith('MinMaxAvg','Min-Max-Medel över dagar','DAYS');
+    	drawContentWith('OutsideHistory','Min-Max-Medel över dagar','DAYS');
     	break;
     case "#outside_weeks":
-    	drawContentWith('MinMaxAvg','Min-Max-Medel över veckor','WEEKS');
+    	drawContentWith('OutsideHistory','Min-Max-Medel över veckor','WEEKS');
     	break;
     case "#outside_months":
-    	drawContentWith('MinMaxAvg','Min-Max-Medel över månader','MONTHS');
+    	drawContentWith('OutsideHistory','Min-Max-Medel över månader','MONTHS');
     	break;
     case "#outside_years":
-    	drawContentWith('MinMaxAvg','Min-Max-Medel över år','YEARS');
+    	drawContentWith('OutsideHistory','Min-Max-Medel över år','YEARS');
     	break;
 }
 	//$('#outside_weeks').click(showCog());
