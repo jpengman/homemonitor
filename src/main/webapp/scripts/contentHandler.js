@@ -5,10 +5,10 @@ google.load('visualization', '1', {
 	'packages' : [ 'corechart' ]
 });
 function drawChart(url, options) {
-	var contentDiv= $("#content");
+	var contentDiv = $("#content");
 	contentDiv.height($(window).height() - 150);
 	if (dataFetched == false) {
-		contentDiv.html($("#tmp_cog").clone().attr("id","cog"));
+		contentDiv.html($("#tmp_cog").clone().attr("id", "cog"));
 		$.ajax({
 			url : baseurl + url,
 			dataType : "json",
@@ -19,40 +19,85 @@ function drawChart(url, options) {
 			success : function(result) {
 				jsonData = result;
 				var data = new google.visualization.DataTable(jsonData);
-				var chart = new google.visualization.LineChart( document.getElementById("content"));
+				var chart = new google.visualization.LineChart(document
+						.getElementById("content"));
 				chart.draw(data, options);
 			},
-			error : function(xhr,status,error) {
+			error : function(xhr, status, error) {
 				contentDiv.html(error);
-				}
+			}
 		});
 		dataFetched = true;
-	}else{
+	} else {
 		var data = new google.visualization.DataTable(jsonData);
-		var chart = new google.visualization.LineChart( document.getElementById("content"));
+		var chart = new google.visualization.LineChart(document
+				.getElementById("content"));
 	}
-	
+
 }
 
 function drawTanks() {
 	if (dataFetched == false) {
-		var contentDiv= $("#content");
-		contentDiv.html($("#tmp_cog").clone().attr("id","cog"));
+		var contentDiv = $("#content");
+		contentDiv.html($("#tmp_cog").clone().attr("id", "cog"));
 		$.ajax({
-		url : baseurl + "svg/heating",
-		beforeSend : function(xhr) {
-			xhr.setRequestHeader("Authorization", "Basic d2ViOkhlbWxpZzEyMyE=");
-		},
-		success : function(result) {
-			contentDiv.html(result);
-		},
-		error : function(xhr,status,error) {
-			contentDiv.html(error);
+			url : baseurl + "svg/heating",
+			beforeSend : function(xhr) {
+				xhr.setRequestHeader("Authorization",
+						"Basic d2ViOkhlbWxpZzEyMyE=");
+			},
+			success : function(result) {
+				contentDiv.html(result);
+			},
+			error : function(xhr, status, error) {
+				contentDiv.html(error);
 			}
 		});
 		dataFetched = true;
 	}
 }
+function formatDate(date) {
+	var day = (date.getDate() < 10 ? '0' : '') + date.getDate();
+	var month = (date.getMonth() < 9 ? '0' : '') + (date.getMonth() + 1);
+	var hours = (date.getHours() < 10 ? '0' : '') + date.getHours();
+	var minutes = (date.getMinutes() < 10 ? '0' : '') + date.getMinutes();
+	return date.getFullYear() + '-' + month + '-' + day + ' ' + hours + ':'
+			+ minutes;
+}
+function drawOverview() {
+	if (dataFetched == false) {
+		var contentDiv = $("#content");
+		contentDiv.html($("#tmp_cog").clone().attr("id", "cog"));
+		$.ajax({
+			url : baseurl + requestOverview,
+			dataType : "json",
+			beforeSend : function(xhr) {
+				xhr.setRequestHeader("Authorization",
+						"Basic d2ViOkhlbWxpZzEyMyE=");
+			},
+			success : function(result) {
+				contentDiv.html($("#tmp_overview").clone().attr("id",
+						"overview"));
+				result.sort(function(a, b) {
+					return a.name.localeCompare(b.name);
+				})
+				$.each(result, function(i, sensor) {
+					$("#overview").find('tbody').append(
+							'<tr><td>' + sensor.name + '</td><td>'
+									+ sensor.lastLoggedTemp + '</td><td>'
+									+ formatDate(new Date(sensor.lastLogged))
+									+ '</td></tr>');
+				});
+
+			},
+			error : function(xhr, status, error) {
+				contentDiv.html(error);
+			}
+		});
+		dataFetched = true;
+	}
+}
+
 function drawContent() {
 	// Drawing content
 	if (content == 'chartByID') {
@@ -62,19 +107,30 @@ function drawContent() {
 		drawChart(requestByType + request + '/' + time, options);
 		showSlider();
 	} else if (content == 'OutsideHistory') {
-		drawChart(requestOutsideHistory + request+ '/', options);
+		drawChart(requestOutsideHistory + request + '/', options);
 		hideSlider();
 	} else if (content == 'tanks') {
 		drawTanks();
 		hideSlider();
+	} else if (content == 'overview') {
+		drawOverview();
+		hideSlider();
 	}
+
 	// Enable/disable Timer
 	clearInterval(timer);
 	if (content != 'OutsideHistory') {
-			timer = setInterval(drawContentTimer, 60000);
+		timer = setInterval(drawContentTimer, 60000);
 	}
+
 	// Set Content Header
-	document.getElementById('content_header').innerHTML = contentHeader;
+	if (contentHeader != null) {
+		$("#content_header").html(contentHeader);
+		$("#content_header").show();
+	} else {
+		$("#content_header").hide();
+	}
+
 }
 function drawContentWith(contentIn, contentHeaderIn, requestIn) {
 	content = contentIn;
@@ -83,6 +139,7 @@ function drawContentWith(contentIn, contentHeaderIn, requestIn) {
 	dataFetched = false;
 	drawContent();
 }
+
 function drawContentTimer() {
 	dataFetched = false;
 	drawContent();

@@ -14,6 +14,7 @@ var baseurl='../OWManager-0.0.1-SNAPSHOT/rest/';
 var requestByID = 'data/getdatatable/';
 var requestByType = 'data/getdatatablebytype/';
 var requestOutsideHistory = 'data/getoutsidehistory/';
+var requestOverview = 'sensors/';
 var request='';
 var time="360";
 var timer = null;
