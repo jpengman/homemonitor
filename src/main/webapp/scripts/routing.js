@@ -41,10 +41,13 @@ var checkHash = function() {
 	case "#overview":
 		drawContentWith('overview', null, null);
 		break;
+	default:
+		drawContentWith('tanks', 'Ögonblicksbild över värmesystemet', null);
+		break;
+	}
+	if ($('#navbarNavAltMarkup').is(":visible")) {
+		$('#navbarNavAltMarkup').collapse('hide');
 	}
 }
 $(window).on('hashchange', checkHash);
-
-if (window.location.hash) {
-	$(window).trigger('hashchange')
-}
+$(window).trigger('hashchange')
