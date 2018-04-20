@@ -68,32 +68,52 @@ function drawOverview() {
 	if (dataFetched == false) {
 		var contentDiv = $("#content");
 		contentDiv.html($("#tmp_cog").clone().attr("id", "cog"));
-		$.ajax({
-			url : baseurl + requestOverview,
-			dataType : "json",
-			beforeSend : function(xhr) {
-				xhr.setRequestHeader("Authorization",
-						"Basic d2ViOkhlbWxpZzEyMyE=");
-			},
-			success : function(result) {
-				contentDiv.html($("#tmp_overview").clone().attr("id",
-						"overview"));
-				result.sort(function(a, b) {
-					return a.name.localeCompare(b.name);
-				})
-				$.each(result, function(i, sensor) {
-					$("#overview").find('tbody').append(
-							'<tr><td>' + sensor.name + '</td><td>'
-									+ sensor.lastLoggedTemp + '</td><td>'
-									+ formatDate(new Date(sensor.lastLogged))
-									+ '</td></tr>');
-				});
+		$
+				.ajax({
+					url : baseurl + requestOverview,
+					dataType : "json",
+					beforeSend : function(xhr) {
+						xhr.setRequestHeader("Authorization",
+								"Basic d2ViOkhlbWxpZzEyMyE=");
+					},
+					success : function(result) {
+						contentDiv.html($("#tmp_overview").clone().attr("id",
+								"overview"));
+						result
+								.sort(function(a, b) {
+									if (a.sensorType.sensorTypeId == b.sensorType.sensorTypeId) {
+										return a.name.localeCompare(b.name);
+									} else {
+										return a.sensorType.sensorTypeId
+												- b.sensorType.sensorTypeId
+									}
 
-			},
-			error : function(xhr, status, error) {
-				contentDiv.html(error);
-			}
-		});
+								})
+						var currentSensorType = null;
+						$
+								.each(
+										result,
+										function(i, sensor) {
+											var sensorTemperature = Number(sensor.lastLoggedTemp)
+													+ Number(sensor.offset)
+											$("#overview")
+													.find('tbody')
+													.append(
+															'<tr><td>'
+																	+ sensor.name
+																	+ '</td><td>'
+																	+ sensorTemperature
+																	+ '</td><td>'
+																	+ formatDate(new Date(
+																			sensor.lastLogged))
+																	+ '</td></tr>');
+										});
+
+					},
+					error : function(xhr, status, error) {
+						contentDiv.html(error);
+					}
+				});
 		dataFetched = true;
 	}
 }
