@@ -135,6 +135,9 @@ function drawContent() {
 	} else if (content == 'overview') {
 		drawOverview();
 		hideSlider();
+	}else if (content == 'meterChart') {
+		drawChart(requestMeter + request + '/' + time, options);
+		showSlider();
 	}
 
 	// Enable/disable Timer

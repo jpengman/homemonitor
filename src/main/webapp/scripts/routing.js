@@ -41,6 +41,9 @@ var checkHash = function() {
 	case "#overview":
 		drawContentWith('overview', null, null);
 		break;
+	case "#vp_usage":
+		drawContentWith('meterChart', 'Antalet starter för Värmepumpen', 1);
+		break;
 	default:
 		drawContentWith('tanks', 'Ögonblicksbild över värmesystemet', null);
 		break;
