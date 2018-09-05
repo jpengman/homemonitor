@@ -44,6 +44,12 @@ var checkHash = function() {
 	case "#vp_usage":
 		drawContentWith('meterChart', 'Antalet starter för Värmepumpen', 1);
 		break;
+	case "#rain_acc":
+		drawContentWith('rainChart', 'Ackumulerad mängd regn', 2);
+		break;
+	case "#rain_history":
+		drawContentWith('rainHistory', 'Regn historik', null);
+		break;
 	default:
 		drawContentWith('tanks', 'Ögonblicksbild över värmesystemet', null);
 		break;

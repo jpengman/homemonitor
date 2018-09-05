@@ -35,6 +35,26 @@ function drawChart(url, options) {
 	}
 
 }
+function drawChartJS(url) {
+	var contentDiv = $("#content");
+	contentDiv.html($("#tmp_cog").clone().attr("id", "cog"));
+	if (dataFetched == false) {
+		$.ajax({
+			url : "http://anviken.noip.me:8080/rest/api/rain/ChartJSConfig/1 MONTH",
+			dataType : "json",
+			success : function(result) {
+				jsonData = result;
+				contentDiv.html($("#tmp_ChartJS").clone().attr("id", "ChartJS"));
+				$("#ChartJS").height($(window).height() - 150);
+				myChart = new Chart($("#ChartJS"), jsonData);
+			},
+			error : function(xhr, status, error) {
+				contentDiv.html(error);
+			}
+		});
+		dataFetched = true;
+	} 
+}
 
 function drawTanks() {
 	if (dataFetched == false) {
@@ -77,8 +97,7 @@ function drawOverview() {
 								"Basic d2ViOkhlbWxpZzEyMyE=");
 					},
 					success : function(result) {
-						contentDiv.html($("#tmp_overview").clone().attr("id",
-								"overview"));
+						contentDiv.html($("#tmp_overview").clone().attr("id","overview"));
 						result
 								.sort(function(a, b) {
 									if (a.sensorType.sensorTypeId == b.sensorType.sensorTypeId) {
@@ -118,6 +137,27 @@ function drawOverview() {
 	}
 }
 
+function drawRainHistory() {
+	if (dataFetched == false) {
+		var contentDiv = $("#content");
+		contentDiv.html($("#tmp_cog").clone().attr("id", "cog"));
+		$.ajax({
+					url : 'http://anviken.noip.me:8080/rest/api/rain/history',
+					dataType : "json",
+					success : function(result) {
+						contentDiv.html($("#tmp_rain_history").clone().attr("id","rain_history"));
+						$("#rain_history").find('tbody').append('<tr><td>I dag</td><td>' + result.day + '</td></tr>');
+						$("#rain_history").find('tbody').append('<tr><td>Senaste dygnet</td><td>' + result.day + '</td></tr>');
+						$("#rain_history").find('tbody').append('<tr><td>Senaste veckan</td><td>' + result.week + '</td></tr>');
+						$("#rain_history").find('tbody').append('<tr><td>Senaste månaden</td><td>' + result.month + '</td></tr>');
+					},
+					error : function(xhr, status, error) {
+						contentDiv.html(error);
+					}
+				});
+		dataFetched = true;
+	}
+}
 function drawContent() {
 	// Drawing content
 	if (content == 'chartByID') {
@@ -138,6 +178,13 @@ function drawContent() {
 	}else if (content == 'meterChart') {
 		drawChart(requestMeter + request + '/' + time, options);
 		showSlider();
+	}
+	else if (content == 'rainChart') {
+		drawChartJS("");
+		hideSlider()
+	}else if (content == 'rainHistory') {
+		drawRainHistory();
+		hideSlider()
 	}
 
 	// Enable/disable Timer

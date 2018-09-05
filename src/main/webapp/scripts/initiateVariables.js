@@ -1,6 +1,7 @@
 /**
  * initiates global variables
  */
+Chart.defaults.global.elements.point.radius = 1;
 var options = {
 		chartArea: {width: '100%', height: '100%'},
 		legend: {position: 'in'},

@@ -53,14 +53,24 @@
 					</div></li>
 				<li class="nav-item dropdown"><a
 					class="nav-link dropdown-toggle" data-toggle="dropdown"
-					data-target="dropdown_outside" href="#">Utomhus<span
+					data-target="dropdown_outside" href="#">Utomhus temperatur<span
 						class="caret"></span></a>
 					<div class="dropdown-menu" aria-labelledby="dropdown_outside">
 						<a class="dropdown-item" href="#outside_now">Just Nu</a> <a
 							class="dropdown-item" href="#outside_days">Dagar</a> <a
 							class="dropdown-item" href="#outside_weeks" id="outside_weeks">Veckor</a>
 						<a class="dropdown-item" href="#outside_months">Månader</a> <a
-							class="dropdown-item" href="#outside_years">År</a>
+							class="dropdown-item" href="#outside_years">År</a> 
+					</div></li>
+					<li class="nav-item dropdown"><a
+					class="nav-link dropdown-toggle" data-toggle="dropdown"
+					data-target="dropdown_rain" href="#">Regn<span
+						class="caret"></span></a>
+					<div class="dropdown-menu" aria-labelledby="dropdown_rain">
+						<a
+							class="dropdown-item" href="#rain_acc">Regn mängd</a>
+							<a
+							class="dropdown-item" href="#rain_history">Regn historik</a>
 					</div></li>
 				<li class="nav-item"><a class="nav-link" href="#overview">Sensorer</a></li>
 			</ul>
@@ -70,6 +80,7 @@
 	<div id="main_view" class="container text-center">
 		<h5 id="content_header"></h5>
 		<div id="content" style.display="none"></div>
+		
 		<div class="row text-center">
 			<div class="col">
 				<input type="range" min="60" max="1440" value="360" step="60"
@@ -84,7 +95,7 @@
 	</div>
 	<!-- Templates -->
 	<div id="templates">
-
+		<canvas id="tmp_ChartJS"></canvas>
 		<table id="tmp_overview" class="table table-sm small">
 			<thead>
 				<tr>
@@ -93,6 +104,10 @@
 					<th scope="col">Tidpunkt</th>
 				</tr>
 			</thead>
+			<tbody>
+			</tbody>
+		</table>
+		<table id="tmp_rain_history" class="table table-sm small">
 			<tbody>
 			</tbody>
 		</table>
@@ -111,13 +126,15 @@
 			</table>
 		</div>
 	</div>
+	
 
 	<script src="scripts/vendor/jquery-3.3.1.min.js"></script>
 	<script src="scripts/vendor/bootstrap.bundle.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/moment.min.js"></script>	
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js" integrity="sha256-CfcERD4Ov4+lKbWbYqXD6aFM9M51gN4GUEtDhkWABMo=" crossorigin="anonymous"></script>
 	<script src="scripts/initiateVariables.js"></script>
 	<script src="scripts/chartRangeHandler.js"></script>
 	<script src="scripts/contentHandler.js"></script>
-
 	<script src="scripts/routing.js"></script>
 </body>
 </html>
