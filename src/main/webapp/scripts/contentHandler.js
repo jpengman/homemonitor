@@ -1,6 +1,12 @@
 /**
  * Handles the modification of the Content tag
  */
+function cloneToContent(template) {
+	$("#content").html($("#tmp_" + template).clone().attr("id", template));
+}
+function appendTable(tableId, html) {
+	$("#" + tableId).find('tbody').append(html);
+}
 google.load('visualization', '1', {
 	'packages' : [ 'corechart' ]
 });
@@ -8,7 +14,7 @@ function drawChart(url, options) {
 	var contentDiv = $("#content");
 	contentDiv.height($(window).height() - 150);
 	if (dataFetched == false) {
-		contentDiv.html($("#tmp_cog").clone().attr("id", "cog"));
+		cloneToContent("cog");
 		$.ajax({
 			url : baseurl + url,
 			dataType : "json",
@@ -36,30 +42,72 @@ function drawChart(url, options) {
 
 }
 function drawChartJS(url) {
-	var contentDiv = $("#content");
-	contentDiv.html($("#tmp_cog").clone().attr("id", "cog"));
+	;
 	if (dataFetched == false) {
-		$.ajax({
-			url : "http://anviken.noip.me:8080/rest/api/rain/ChartJSConfig/1 MONTH",
-			dataType : "json",
-			success : function(result) {
-				jsonData = result;
-				contentDiv.html($("#tmp_ChartJS").clone().attr("id", "ChartJS"));
-				$("#ChartJS").height($(window).height() - 150);
-				myChart = new Chart($("#ChartJS"), jsonData);
-			},
-			error : function(xhr, status, error) {
-				contentDiv.html(error);
-			}
-		});
-		dataFetched = true;
-	} 
+		if (clean == true) {
+			cloneToContent("cog");
+			$.ajax({
+				url : url,
+				dataType : "json",
+				success : function(result) {
+					jsonData = result;
+					cloneToContent("ChartJS");
+					$("#ChartJS").height($(window).height() - 150);
+					myChart = new Chart($("#ChartJS"), jsonData);
+				},
+				error : function(xhr, status, error) {
+					$("#content").html(error);
+				}
+			});
+			dataFetched = true;
+		} else {
+
+		}
+	} else {
+		$("#content").height($(window).height() - 150);
+	}
+}
+function drawMap(url) {
+	var contentDiv = $("#content");
+	var map = new google.maps.Map(document.getElementById('content'), {
+		zoom : 18,
+		center : {
+			lat : 62.937196215,
+			lng : 15.088929118
+		},
+		mapTypeId : 'satellite',
+		mapTypeControl : false,
+		streetViewControl : false
+	});
+
+	$.ajax({
+		url : url,
+		dataType : "json",
+		success : function(result) {
+			var flightPlanCoordinates = result;
+			var flightPath = new google.maps.Polyline({
+				path : flightPlanCoordinates,
+				geodesic : true,
+				strokeColor : '#FF0000',
+				strokeOpacity : 1.0,
+				strokeWeight : 2
+			});
+
+			flightPath.setMap(map);
+
+		},
+		error : function(xhr, status, error) {
+			contentDiv.html(error);
+		}
+	});
+
+	contentDiv.height($(window).height() - 150);
 }
 
 function drawTanks() {
 	if (dataFetched == false) {
 		var contentDiv = $("#content");
-		contentDiv.html($("#tmp_cog").clone().attr("id", "cog"));
+		cloneToContent("cog");
 		$.ajax({
 			url : baseurl + "svg/heating",
 			beforeSend : function(xhr) {
@@ -86,8 +134,7 @@ function formatDate(date) {
 }
 function drawOverview() {
 	if (dataFetched == false) {
-		var contentDiv = $("#content");
-		contentDiv.html($("#tmp_cog").clone().attr("id", "cog"));
+		cloneToContent("cog");
 		$
 				.ajax({
 					url : baseurl + requestOverview,
@@ -97,7 +144,7 @@ function drawOverview() {
 								"Basic d2ViOkhlbWxpZzEyMyE=");
 					},
 					success : function(result) {
-						contentDiv.html($("#tmp_overview").clone().attr("id","overview"));
+						cloneToContent("overview");
 						result
 								.sort(function(a, b) {
 									if (a.sensorType.sensorTypeId == b.sensorType.sensorTypeId) {
@@ -115,22 +162,18 @@ function drawOverview() {
 										function(i, sensor) {
 											var sensorTemperature = Number(sensor.lastLoggedTemp)
 													+ Number(sensor.offset)
-											$("#overview")
-													.find('tbody')
-													.append(
-															'<tr><td>'
-																	+ sensor.name
-																	+ '</td><td>'
-																	+ sensorTemperature
-																	+ '</td><td>'
-																	+ formatDate(new Date(
-																			sensor.lastLogged))
-																	+ '</td></tr>');
+											appendTable("overview", '<tr><td>'
+													+ sensor.name
+													+ '</td><td>'
+													+ sensorTemperature
+													+ '</td><td>'
+													+ formatDate(new Date(
+															sensor.lastLogged))
+													+ '</td></tr>');
 										});
-
 					},
 					error : function(xhr, status, error) {
-						contentDiv.html(error);
+						$("#content").html(error);
 					}
 				});
 		dataFetched = true;
@@ -139,32 +182,38 @@ function drawOverview() {
 
 function drawRainHistory() {
 	if (dataFetched == false) {
-		var contentDiv = $("#content");
-		contentDiv.html($("#tmp_cog").clone().attr("id", "cog"));
+		cloneToContent("cog");
 		$.ajax({
-					url : 'http://anviken.noip.me:8080/rest/api/rain/history',
-					dataType : "json",
-					success : function(result) {
-						contentDiv.html($("#tmp_rain_history").clone().attr("id","rain_history"));
-						$("#rain_history").find('tbody').append('<tr><td>I dag</td><td>' + result.day + '</td></tr>');
-						$("#rain_history").find('tbody').append('<tr><td>Senaste dygnet</td><td>' + result.day + '</td></tr>');
-						$("#rain_history").find('tbody').append('<tr><td>Senaste veckan</td><td>' + result.week + '</td></tr>');
-						$("#rain_history").find('tbody').append('<tr><td>Senaste månaden</td><td>' + result.month + '</td></tr>');
-					},
-					error : function(xhr, status, error) {
-						contentDiv.html(error);
-					}
-				});
+			url : 'http://anviken.noip.me:8080/rest/api/rain/history',
+			dataType : "json",
+			success : function(result) {
+				cloneToContent("rain_history");
+				appendTable("rain_history", '<tr><td>I dag</td><td>'
+						+ result.today + '</td></tr>');
+				appendTable("rain_history", '<tr><td>Senaste dygnet</td><td>'
+						+ result.day + '</td></tr>');
+				appendTable("rain_history", '<tr><td>Senaste veckan</td><td>'
+						+ result.week + '</td></tr>');
+				appendTable("rain_history", '<tr><td>Senaste månaden</td><td>'
+						+ result.month + '</td></tr>');
+			},
+			error : function(xhr, status, error) {
+				$("#content").html(error);
+			}
+		});
 		dataFetched = true;
 	}
 }
 function drawContent() {
 	// Drawing content
 	if (content == 'chartByID') {
-		drawChart(requestByID + request + '/' + time, options);
+		drawChartJS(
+				'http://anviken.noip.me:8080/rest/api/temperature/chart/byid/'
+						+ request + '/' + time + "%20MINUTE", options);
 		showSlider();
 	} else if (content == 'chartByType') {
-		drawChart(requestByType + request + '/' + time, options);
+		drawChartJS("http://anviken.noip.me:8080/rest/api/temperature/chart/bytype/"
+				+ request + "/" + time + "%20MINUTE");
 		showSlider();
 	} else if (content == 'OutsideHistory') {
 		drawChart(requestOutsideHistory + request + '/', options);
@@ -175,16 +224,19 @@ function drawContent() {
 	} else if (content == 'overview') {
 		drawOverview();
 		hideSlider();
-	}else if (content == 'meterChart') {
+	} else if (content == 'meterChart') {
 		drawChart(requestMeter + request + '/' + time, options);
 		showSlider();
-	}
-	else if (content == 'rainChart') {
-		drawChartJS("");
+	} else if (content == 'rainChart') {
+		drawChartJS("http://anviken.noip.me:8080/rest/api/rain/ChartJSConfig/1 MONTH");
 		hideSlider()
-	}else if (content == 'rainHistory') {
+	} else if (content == 'rainHistory') {
 		drawRainHistory();
 		hideSlider()
+	} else if (content == 'mowerMap') {
+		drawMap("http://anviken.noip.me:8080/rest/api/mower/coordiantes/Roberta/"
+				+ time + "%20MINUTE");
+		showSlider()
 	}
 
 	// Enable/disable Timer
@@ -200,6 +252,7 @@ function drawContent() {
 	} else {
 		$("#content_header").hide();
 	}
+	clean = false;
 
 }
 function drawContentWith(contentIn, contentHeaderIn, requestIn) {

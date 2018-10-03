@@ -3,6 +3,7 @@
  */
 
 var checkHash = function() {
+	clean=true;
 	switch (location.hash) {
 	case "#stove":
 		drawContentWith('chartByType', 'Vedspisen till Ackumulatortanken',
@@ -49,6 +50,9 @@ var checkHash = function() {
 		break;
 	case "#rain_history":
 		drawContentWith('rainHistory', 'Regn historik', null);
+		break;
+	case "#mower_map":
+		drawContentWith("mowerMap", "Gräsklipparen", null);
 		break;
 	default:
 		drawContentWith('tanks', 'Ögonblicksbild över värmesystemet', null);

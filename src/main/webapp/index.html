@@ -16,6 +16,9 @@
 #templates {
 	display: none
 }
+#content {
+        height: 100%;
+      }
 </style>
 
 <script defer
@@ -53,7 +56,7 @@
 					</div></li>
 				<li class="nav-item dropdown"><a
 					class="nav-link dropdown-toggle" data-toggle="dropdown"
-					data-target="dropdown_outside" href="#">Utomhus temperatur<span
+					data-target="dropdown_outside" href="#">Utomhus<span
 						class="caret"></span></a>
 					<div class="dropdown-menu" aria-labelledby="dropdown_outside">
 						<a class="dropdown-item" href="#outside_now">Just Nu</a> <a
@@ -61,18 +64,13 @@
 							class="dropdown-item" href="#outside_weeks" id="outside_weeks">Veckor</a>
 						<a class="dropdown-item" href="#outside_months">Månader</a> <a
 							class="dropdown-item" href="#outside_years">År</a> 
+							<a class="dropdown-item" href="#rain_acc">Regn Graf</a>
+							<a	class="dropdown-item" href="#rain_history">Regn historik</a>
 					</div></li>
-					<li class="nav-item dropdown"><a
-					class="nav-link dropdown-toggle" data-toggle="dropdown"
-					data-target="dropdown_rain" href="#">Regn<span
-						class="caret"></span></a>
-					<div class="dropdown-menu" aria-labelledby="dropdown_rain">
-						<a
-							class="dropdown-item" href="#rain_acc">Regn mängd</a>
-							<a
-							class="dropdown-item" href="#rain_history">Regn historik</a>
-					</div></li>
+										
 				<li class="nav-item"><a class="nav-link" href="#overview">Sensorer</a></li>
+				<!-- li class="nav-item"><a class="nav-link" href="#mower_map">Gräsklipparen</a></li-->
+				
 			</ul>
 		</div>
 	</nav>
@@ -83,7 +81,7 @@
 		
 		<div class="row text-center">
 			<div class="col">
-				<input type="range" min="60" max="1440" value="360" step="60"
+				<input type="range" min="15" max="1440" value="360" step="15"
 					id="chart_range" class="slider form-control" style.display="none">
 			</div>
 		</div>
@@ -132,9 +130,12 @@
 	<script src="scripts/vendor/bootstrap.bundle.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/moment.min.js"></script>	
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js" integrity="sha256-CfcERD4Ov4+lKbWbYqXD6aFM9M51gN4GUEtDhkWABMo=" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js"></script>
 	<script src="scripts/initiateVariables.js"></script>
 	<script src="scripts/chartRangeHandler.js"></script>
 	<script src="scripts/contentHandler.js"></script>
 	<script src="scripts/routing.js"></script>
+	
+    
 </body>
 </html>
