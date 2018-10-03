@@ -11,7 +11,7 @@ var options = {
 	};
 var content='tanks';
 var contentHeader='';
-var baseurl='../OWManager-0.0.1-SNAPSHOT/rest/';
+var restApiHome="../rest/api/";
 var requestByID = 'data/getdatatable/';
 var requestByType = 'data/getdatatablebytype/';
 var requestOutsideHistory = 'data/getoutsidehistory/';

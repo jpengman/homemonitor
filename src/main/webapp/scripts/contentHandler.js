@@ -1,6 +1,7 @@
 /**
  * Handles the modification of the Content tag
  */
+
 function cloneToContent(template) {
 	$("#content").html($("#tmp_" + template).clone().attr("id", template));
 }
@@ -16,7 +17,7 @@ function drawChart(url, options) {
 	if (dataFetched == false) {
 		cloneToContent("cog");
 		$.ajax({
-			url : baseurl + url,
+			url : '../OWManager-0.0.1-SNAPSHOT/rest/' + url,
 			dataType : "json",
 			beforeSend : function(xhr) {
 				xhr.setRequestHeader("Authorization",
@@ -42,12 +43,11 @@ function drawChart(url, options) {
 
 }
 function drawChartJS(url) {
-	;
 	if (dataFetched == false) {
 		if (clean == true) {
 			cloneToContent("cog");
 			$.ajax({
-				url : url,
+				url : restApiHome +url,
 				dataType : "json",
 				success : function(result) {
 					jsonData = result;
@@ -61,7 +61,7 @@ function drawChartJS(url) {
 			});
 			dataFetched = true;
 		} else {
-
+			
 		}
 	} else {
 		$("#content").height($(window).height() - 150);
@@ -109,7 +109,7 @@ function drawTanks() {
 		var contentDiv = $("#content");
 		cloneToContent("cog");
 		$.ajax({
-			url : baseurl + "svg/heating",
+			url : "../OWManager-0.0.1-SNAPSHOT/rest/svg/heating",
 			beforeSend : function(xhr) {
 				xhr.setRequestHeader("Authorization",
 						"Basic d2ViOkhlbWxpZzEyMyE=");
@@ -137,12 +137,8 @@ function drawOverview() {
 		cloneToContent("cog");
 		$
 				.ajax({
-					url : baseurl + requestOverview,
+					url : "../rest/api/temperature/sensorlist",
 					dataType : "json",
-					beforeSend : function(xhr) {
-						xhr.setRequestHeader("Authorization",
-								"Basic d2ViOkhlbWxpZzEyMyE=");
-					},
 					success : function(result) {
 						cloneToContent("overview");
 						result
@@ -184,7 +180,7 @@ function drawRainHistory() {
 	if (dataFetched == false) {
 		cloneToContent("cog");
 		$.ajax({
-			url : 'http://anviken.noip.me:8080/rest/api/rain/history',
+			url : '../rest/api/rain/history',
 			dataType : "json",
 			success : function(result) {
 				cloneToContent("rain_history");
@@ -208,11 +204,11 @@ function drawContent() {
 	// Drawing content
 	if (content == 'chartByID') {
 		drawChartJS(
-				'http://anviken.noip.me:8080/rest/api/temperature/chart/byid/'
+				"temperature/chart/byid/"
 						+ request + '/' + time + "%20MINUTE", options);
 		showSlider();
 	} else if (content == 'chartByType') {
-		drawChartJS("http://anviken.noip.me:8080/rest/api/temperature/chart/bytype/"
+		drawChartJS("temperature/chart/bytype/"
 				+ request + "/" + time + "%20MINUTE");
 		showSlider();
 	} else if (content == 'OutsideHistory') {
@@ -228,13 +224,13 @@ function drawContent() {
 		drawChart(requestMeter + request + '/' + time, options);
 		showSlider();
 	} else if (content == 'rainChart') {
-		drawChartJS("http://anviken.noip.me:8080/rest/api/rain/ChartJSConfig/1 MONTH");
+		drawChartJS("rain/ChartJSConfig/1 MONTH");
 		hideSlider()
 	} else if (content == 'rainHistory') {
 		drawRainHistory();
 		hideSlider()
 	} else if (content == 'mowerMap') {
-		drawMap("http://anviken.noip.me:8080/rest/api/mower/coordiantes/Roberta/"
+		drawMap(restApiHome+"mower/coordiantes/Roberta/"
 				+ time + "%20MINUTE");
 		showSlider()
 	}
