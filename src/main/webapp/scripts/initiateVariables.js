@@ -23,3 +23,4 @@ var timer = null;
 var dataFetched= false;
 var clean=false;
 var jsonData = '';
+var myChart=null;

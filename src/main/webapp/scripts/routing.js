@@ -3,7 +3,7 @@
  */
 
 var checkHash = function() {
-	clean=true;
+	clean = true;
 	switch (location.hash) {
 	case "#stove":
 		drawContentWith('chartByType', 'Vedspisen till Ackumulatortanken',
@@ -53,6 +53,15 @@ var checkHash = function() {
 		break;
 	case "#mower_map":
 		drawContentWith("mowerMap", "Gräsklipparen", null);
+		break;
+	case "#groundwater_this_year":
+		drawContentWith("groundwaterChart", "Grundvatten", (new Date()).getFullYear());
+		break;
+	case "#groundwater_small":
+		drawContentWith("groundwaterChart", "Grundvatten", "Små");
+		break;
+	case "#groundwater_large":
+		drawContentWith("groundwaterChart", "Grundvatten", "Stora");
 		break;
 	default:
 		drawContentWith('tanks', 'Ögonblicksbild över värmesystemet', null);

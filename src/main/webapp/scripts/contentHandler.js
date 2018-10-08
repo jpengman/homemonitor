@@ -50,10 +50,9 @@ function drawChartJS(url) {
 				url : restApiHome +url,
 				dataType : "json",
 				success : function(result) {
-					jsonData = result;
 					cloneToContent("ChartJS");
 					$("#ChartJS").height($(window).height() - 150);
-					myChart = new Chart($("#ChartJS"), jsonData);
+					myChart = new Chart($("#ChartJS"), result);
 				},
 				error : function(xhr, status, error) {
 					$("#content").html(error);
@@ -61,7 +60,34 @@ function drawChartJS(url) {
 			});
 			dataFetched = true;
 		} else {
-			
+			cloneToContent("cog");
+			$.ajax({
+				url : restApiHome +url,
+				dataType : "json",
+				success : function(result) {
+					cloneToContent("ChartJS");
+					$("#ChartJS").height($(window).height() - 150);
+					myChart = new Chart($("#ChartJS"), result);
+				},
+				error : function(xhr, status, error) {
+					$("#content").html(error);
+				}
+			});
+			//TODO replace with only data reload
+			/*$.ajax({
+				url : restApiHome +url,
+				dataType : "json",
+				success : function(result) {
+					var jsondata = JSON.parse(result);
+					myChart.config.data = jsondata.data;
+					myChart.update();
+					
+				},
+				error : function(xhr, status, error) {
+					$("#content").html(error);
+				}
+			});*/
+			dataFetched = true;
 		}
 	} else {
 		$("#content").height($(window).height() - 150);
@@ -180,7 +206,7 @@ function drawRainHistory() {
 	if (dataFetched == false) {
 		cloneToContent("cog");
 		$.ajax({
-			url : '../rest/api/rain/history',
+			url : restApiHome + "rain/history",
 			dataType : "json",
 			success : function(result) {
 				cloneToContent("rain_history");
@@ -233,11 +259,14 @@ function drawContent() {
 		drawMap(restApiHome+"mower/coordiantes/Roberta/"
 				+ time + "%20MINUTE");
 		showSlider()
+	}else if (content == 'groundwaterChart') {
+		drawChartJS("groundwater/chart/"+request);
+		hideSlider();
 	}
 
 	// Enable/disable Timer
 	clearInterval(timer);
-	if (content != 'OutsideHistory') {
+	if (content != 'OutsideHistory' && content != 'groundwaterChart') {
 		timer = setInterval(drawContentTimer, 60000);
 	}
 
