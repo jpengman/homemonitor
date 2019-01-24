@@ -43,7 +43,7 @@ var checkHash = function() {
 		drawContentWith('overview', null, null);
 		break;
 	case "#vp_usage":
-		drawContentWith('meterChart', 'Antalet starter för Värmepumpen', 1);
+		drawContentWith('meterYearChart', 'Antalet starter för Värmepumpen', 'HP_STARTS-DAILY');
 		break;
 	case "#rain_acc":
 		drawContentWith('rainChart', 'Ackumulerad mängd regn', 2);
@@ -55,13 +55,17 @@ var checkHash = function() {
 		drawContentWith("mowerMap", "Gräsklipparen", null);
 		break;
 	case "#groundwater_this_year":
-		drawContentWith("groundwaterChart", "Grundvatten", (new Date()).getFullYear());
+		drawContentWith("groundwaterChart", "Grundvatten", (new Date())
+				.getFullYear());
 		break;
 	case "#groundwater_small":
 		drawContentWith("groundwaterChart", "Grundvatten", "Små");
 		break;
 	case "#groundwater_large":
 		drawContentWith("groundwaterChart", "Grundvatten", "Stora");
+		break;
+	case "#incoming_water":
+		drawContentWith("meterYearChart", "Inkommande vatten", "INCOMING_WATER");
 		break;
 	default:
 		drawContentWith('tanks', 'Ögonblicksbild över värmesystemet', null);

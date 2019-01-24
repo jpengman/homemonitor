@@ -50,8 +50,13 @@ function drawChartJS(url) {
 				url : restApiHome +url,
 				dataType : "json",
 				success : function(result) {
+									
 					cloneToContent("ChartJS");
-					$("#ChartJS").height($(window).height() - 150);
+					if(document.getElementById("chart_range").style.display == "block"){
+						$("#ChartJS").height($(window).height() - 150);
+					}else{
+						$("#ChartJS").height($(window).height() - 80);
+					}	
 					myChart = new Chart($("#ChartJS"), result);
 				},
 				error : function(xhr, status, error) {
@@ -229,44 +234,44 @@ function drawRainHistory() {
 function drawContent() {
 	// Drawing content
 	if (content == 'chartByID') {
+		showSlider();
 		drawChartJS(
 				"temperature/chart/byid/"
 						+ request + '/' + time + "%20MINUTE", options);
-		showSlider();
 	} else if (content == 'chartByType') {
+		showSlider();
 		drawChartJS("temperature/chart/bytype/"
 				+ request + "/" + time + "%20MINUTE");
-		showSlider();
 	} else if (content == 'OutsideHistory') {
+		hideSlider();
 		drawChart(requestOutsideHistory + request + '/', options);
-		hideSlider();
 	} else if (content == 'tanks') {
+		hideSlider();
 		drawTanks();
-		hideSlider();
 	} else if (content == 'overview') {
-		drawOverview();
 		hideSlider();
-	} else if (content == 'meterChart') {
-		drawChart(requestMeter + request + '/' + time, options);
-		showSlider();
+		drawOverview();
+	} else if (content == 'meterYearChart') {
+		hideSlider();
+		drawChartJS("meter/chart/years/"+ request +"/-1");
 	} else if (content == 'rainChart') {
+		hideSlider();
 		drawChartJS("rain/ChartJSConfig/1 MONTH");
-		hideSlider()
 	} else if (content == 'rainHistory') {
+		hideSlider();
 		drawRainHistory();
-		hideSlider()
 	} else if (content == 'mowerMap') {
+		showSlider();
 		drawMap(restApiHome+"mower/coordiantes/Roberta/"
 				+ time + "%20MINUTE");
-		showSlider()
 	}else if (content == 'groundwaterChart') {
-		drawChartJS("groundwater/chart/"+request);
 		hideSlider();
+		drawChartJS("groundwater/chart/"+request);
 	}
 
 	// Enable/disable Timer
 	clearInterval(timer);
-	if (content != 'OutsideHistory' && content != 'groundwaterChart') {
+	if (content != 'OutsideHistory' && content != 'groundwaterChart' && content != 'meterYearChart') {
 		timer = setInterval(drawContentTimer, 60000);
 	}
 
