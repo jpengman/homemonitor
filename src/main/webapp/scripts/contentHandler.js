@@ -5,6 +5,10 @@
 function cloneToContent(template) {
 	$("#content").html($("#tmp_" + template).clone().attr("id", template));
 }
+function appendContent(template) {
+	$("#content").append($("#tmp_" + template).clone().attr("id", template));
+}
+
 function appendTable(tableId, html) {
 	$("#" + tableId).find('tbody').append(html);
 }
@@ -49,8 +53,7 @@ function drawChartJS(url) {
 			$.ajax({
 				url : restApiHome +url,
 				dataType : "json",
-				success : function(result) {
-									
+				success : function(result) {				
 					cloneToContent("ChartJS");
 					if(document.getElementById("chart_range").style.display == "block"){
 						$("#ChartJS").height($(window).height() - 150);
@@ -65,33 +68,22 @@ function drawChartJS(url) {
 			});
 			dataFetched = true;
 		} else {
-			cloneToContent("cog");
 			$.ajax({
 				url : restApiHome +url,
 				dataType : "json",
 				success : function(result) {
-					cloneToContent("ChartJS");
 					$("#ChartJS").height($(window).height() - 150);
-					myChart = new Chart($("#ChartJS"), result);
-				},
-				error : function(xhr, status, error) {
-					$("#content").html(error);
-				}
-			});
-			//TODO replace with only data reload
-			/*$.ajax({
-				url : restApiHome +url,
-				dataType : "json",
-				success : function(result) {
-					var jsondata = JSON.parse(result);
-					myChart.config.data = jsondata.data;
-					myChart.update();
+					Chart.helpers.each(Chart.instances, function(instance){
+						  instance.config.data.datasets = result.data.datasets;
+						  instance.update();
+							 
+						})
 					
 				},
 				error : function(xhr, status, error) {
 					$("#content").html(error);
 				}
-			});*/
+			});
 			dataFetched = true;
 		}
 	} else {
@@ -147,15 +139,27 @@ function drawTanks() {
 			},
 			success : function(result) {
 				contentDiv.html(result);
+				appendContent("solarinfo");
+				$.get("../rest/api/solar/overview", function(result) {
+					appendTable("solarinfo","<tr><td>"+formatPower(result.currentPower.power)+"</td><td>"+formatPower(result.lastDayData.energy)+"/h</td><td></td></tr>")
+					console.log(result);
+				});
 			},
 			error : function(xhr, status, error) {
 				contentDiv.html(error);
 			}
 		});
+		
 		dataFetched = true;
 	}
 }
-function formatDate(date) {
+function formatPower(power) {
+	if (power>1000){
+		return parseFloat(power/1000).toPrecision(3) +" kW";
+	}
+	else return power + " W";
+}
+	function formatDate(date) {
 	var day = (date.getDate() < 10 ? '0' : '') + date.getDate();
 	var month = (date.getMonth() < 9 ? '0' : '') + (date.getMonth() + 1);
 	var hours = (date.getHours() < 10 ? '0' : '') + date.getHours();
@@ -237,21 +241,25 @@ function drawContent() {
 		showSlider();
 		drawChartJS(
 				"temperature/chart/byid/"
-						+ request + '/' + time + "%20MINUTE", options);
+						+ request + '/' + time + "%20MINUTE");
 	} else if (content == 'chartByType') {
 		showSlider();
 		drawChartJS("temperature/chart/bytype/"
 				+ request + "/" + time + "%20MINUTE");
 	} else if (content == 'OutsideHistory') {
 		hideSlider();
-		drawChart(requestOutsideHistory + request + '/', options);
+		drawChartJS("minavgmax/" + request);
 	} else if (content == 'tanks') {
 		hideSlider();
 		drawTanks();
 	} else if (content == 'overview') {
 		hideSlider();
 		drawOverview();
-	} else if (content == 'meterYearChart') {
+	} else if (content == 'meterChart') {
+		showSlider();
+		drawChartJS("meter/chart/byinterval/"
+				+ request + "/" + time + "%20MINUTE");
+	}else if (content == 'meterYearChart') {
 		hideSlider();
 		drawChartJS("meter/chart/years/"+ request +"/-1");
 	} else if (content == 'rainChart') {

@@ -16,9 +16,10 @@
 #templates {
 	display: none
 }
+
 #content {
-        height: 100%;
-      }
+	height: 100%;
+}
 </style>
 
 <script defer
@@ -63,25 +64,31 @@
 							class="dropdown-item" href="#outside_days">Dagar</a> <a
 							class="dropdown-item" href="#outside_weeks" id="outside_weeks">Veckor</a>
 						<a class="dropdown-item" href="#outside_months">Månader</a> <a
-							class="dropdown-item" href="#outside_years">År</a> 
-							<a class="dropdown-item" href="#rain_acc">Regn Graf</a>
-							<a	class="dropdown-item" href="#rain_history">Regn historik</a>
+							class="dropdown-item" href="#outside_years">År</a> <a
+							class="dropdown-item" href="#rain_acc">Regn Graf</a> <a
+							class="dropdown-item" href="#rain_history">Regn historik</a>
 					</div></li>
-				
+					<li class="nav-item dropdown"><a
+					class="nav-link dropdown-toggle" data-toggle="dropdown"
+					data-target="dropdown_outside" href="#">Solceller<span
+						class="caret"></span></a>
+					<div class="dropdown-menu" aria-labelledby="dropdown_outside">
+						<a class="dropdown-item" href="#solar_power">Soleffekt</a> 
+					</div></li>
 				<li class="nav-item dropdown"><a
 					class="nav-link dropdown-toggle" data-toggle="dropdown"
-					data-target="dropdown_water" href="#">Vatten<span
-						class="caret"></span></a>
+					data-target="dropdown_water" href="#">Vatten<span class="caret"></span></a>
 					<div class="dropdown-menu" aria-labelledby="dropdown_water">
-						<a class="dropdown-item" href="#incoming_water">Inkommande vatten</a> 
-						<a class="dropdown-item" href="#groundwater_this_year">Grundvatten - I år</a> 
-						<a class="dropdown-item" href="#groundwater_small">Grundvatten - Små magasin</a>
-						<a class="dropdown-item" href="#groundwater_large">Grundvatten - Stora magasin</a> 
+						<a class="dropdown-item" href="#incoming_water">Inkommande
+							vatten</a> <a class="dropdown-item" href="#groundwater_this_year">Grundvatten
+							- I år</a> <a class="dropdown-item" href="#groundwater_small">Grundvatten
+							- Små magasin</a> <a class="dropdown-item" href="#groundwater_large">Grundvatten
+							- Stora magasin</a>
 					</div></li>
-										
+
 				<li class="nav-item"><a class="nav-link" href="#overview">Sensorer</a></li>
 				<!-- li class="nav-item"><a class="nav-link" href="#mower_map">Gräsklipparen</a></li-->
-				
+
 			</ul>
 		</div>
 	</nav>
@@ -89,7 +96,7 @@
 	<div id="main_view" class="container text-center">
 		<h5 id="content_header"></h5>
 		<div id="content" style.display="none"></div>
-		
+
 		<div class="row text-center">
 			<div class="col">
 				<input type="range" min="15" max="1440" value="360" step="15"
@@ -116,6 +123,20 @@
 			<tbody>
 			</tbody>
 		</table>
+		<table id="tmp_solarinfo" class="table table-sm small">
+			<thead>
+				<tr>
+					<th scope="col" colspan="3">Solcellerna</th>
+				</tr>
+				<tr>
+					<th scope="col">Aktuell effekt</th>
+					<th scope="col">I dag</th>
+					<th scope="col">Den här månaden</th>
+				</tr>
+			</thead>
+			<tbody>
+			</tbody>
+		</table>
 		<table id="tmp_rain_history" class="table table-sm small">
 			<tbody>
 			</tbody>
@@ -135,18 +156,23 @@
 			</table>
 		</div>
 	</div>
-	
+
 
 	<script src="scripts/vendor/jquery-3.3.1.min.js"></script>
 	<script src="scripts/vendor/bootstrap.bundle.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/moment.min.js"></script>	
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js" integrity="sha256-CfcERD4Ov4+lKbWbYqXD6aFM9M51gN4GUEtDhkWABMo=" crossorigin="anonymous"></script>
-    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/moment.min.js"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"
+		integrity="sha256-CfcERD4Ov4+lKbWbYqXD6aFM9M51gN4GUEtDhkWABMo="
+		crossorigin="anonymous"></script>
+	<script type="text/javascript"
+		src="https://maps.googleapis.com/maps/api/js"></script>
 	<script src="scripts/initiateVariables.js"></script>
 	<script src="scripts/chartRangeHandler.js"></script>
 	<script src="scripts/contentHandler.js"></script>
 	<script src="scripts/routing.js"></script>
-	
-    
+
+
 </body>
 </html>

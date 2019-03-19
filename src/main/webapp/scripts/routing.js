@@ -20,9 +20,6 @@ var checkHash = function() {
 		drawContentWith('chartByType', 'Temperaturen i golvärmesystemet',
 				'HEATING_FH');
 		break;
-	case "#tanks":
-		drawContentWith('tanks', 'Ögonblicksbild över värmesystemet', null);
-		break;
 	case "#outside_now":
 		drawContentWith('chartByType', 'Utomhustemperaturen', 'OUTSIDE');
 		break;
@@ -67,8 +64,11 @@ var checkHash = function() {
 	case "#incoming_water":
 		drawContentWith("meterYearChart", "Inkommande vatten", "INCOMING_WATER");
 		break;
+	case "#solar_power":
+			drawContentWith("meterChart", "Sol effekt", "SOLAR_POWER");
+			break;
 	default:
-		drawContentWith('tanks', 'Ögonblicksbild över värmesystemet', null);
+		drawContentWith('tanks', '', null);
 		break;
 	}
 	if ($('#navbarNavAltMarkup').is(":visible")) {
