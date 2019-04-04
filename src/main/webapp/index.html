@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0 user-scalable=no">
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <meta name=apple-mobile-web-app-status-bar-style content=black>
 <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
@@ -19,6 +19,9 @@
 
 #content {
 	height: 100%;
+}
+#month_col {
+  text-transform: capitalize;
 }
 </style>
 
@@ -131,7 +134,7 @@
 				<tr>
 					<th scope="col">Aktuell effekt</th>
 					<th scope="col">I dag</th>
-					<th scope="col">Den här månaden</th>
+					<th scope="col" id="month_col"></th>
 				</tr>
 			</thead>
 			<tbody>

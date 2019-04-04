@@ -140,8 +140,10 @@ function drawTanks() {
 			success : function(result) {
 				contentDiv.html(result);
 				appendContent("solarinfo");
+				const date = new Date();  
+				$("#month_col").html(date.toLocaleString('sv-SE', { month: 'long' }))
 				$.get("../rest/api/solar/overview", function(result) {
-					appendTable("solarinfo","<tr><td>"+formatPower(result.currentPower.power)+"</td><td>"+formatPower(result.lastDayData.energy)+"/h</td><td></td></tr>")
+					appendTable("solarinfo","<tr><td>"+formatPower(result.currentPower.power)+"</td><td>"+formatPower(result.lastDayData.energy)+"/h</td><td>"+formatPower(result.lastMonthData.energy)+"/h</td></tr>")
 					console.log(result);
 				});
 			},
@@ -275,6 +277,9 @@ function drawContent() {
 	}else if (content == 'groundwaterChart') {
 		hideSlider();
 		drawChartJS("groundwater/chart/"+request);
+	}else if (content == 'solarPowerChart') {
+		hideSlider();
+		drawChartJS("solar/chart/today");
 	}
 
 	// Enable/disable Timer
