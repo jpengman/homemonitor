@@ -50,35 +50,36 @@ function drawChartJS(url) {
 	if (dataFetched == false) {
 		if (clean == true) {
 			cloneToContent("cog");
-			$.ajax({
-				url : restApiHome +url,
-				dataType : "json",
-				success : function(result) {				
-					cloneToContent("ChartJS");
-					if(document.getElementById("chart_range").style.display == "block"){
-						$("#ChartJS").height($(window).height() - 150);
-					}else{
-						$("#ChartJS").height($(window).height() - 80);
-					}	
-					myChart = new Chart($("#ChartJS"), result);
-				},
-				error : function(xhr, status, error) {
-					$("#content").html(error);
-				}
-			});
+			$
+					.ajax({
+						url : restApiHome + url,
+						dataType : "json",
+						success : function(result) {
+							cloneToContent("ChartJS");
+							if (document.getElementById("chart_range").style.display == "block") {
+								$("#ChartJS").height($(window).height() - 150);
+							} else {
+								$("#ChartJS").height($(window).height() - 80);
+							}
+							myChart = new Chart($("#ChartJS"), result);
+						},
+						error : function(xhr, status, error) {
+							$("#content").html(error);
+						}
+					});
 			dataFetched = true;
 		} else {
 			$.ajax({
-				url : restApiHome +url,
+				url : restApiHome + url,
 				dataType : "json",
 				success : function(result) {
 					$("#ChartJS").height($(window).height() - 150);
-					Chart.helpers.each(Chart.instances, function(instance){
-						  instance.config.data.datasets = result.data.datasets;
-						  instance.update();
-							 
-						})
-					
+					Chart.helpers.each(Chart.instances, function(instance) {
+						instance.config.data.datasets = result.data.datasets;
+						instance.update();
+
+					})
+
 				},
 				error : function(xhr, status, error) {
 					$("#content").html(error);
@@ -131,37 +132,63 @@ function drawTanks() {
 	if (dataFetched == false) {
 		var contentDiv = $("#content");
 		cloneToContent("cog");
-		$.ajax({
-			url : "../OWManager-0.0.1-SNAPSHOT/rest/svg/heating",
-			beforeSend : function(xhr) {
-				xhr.setRequestHeader("Authorization",
-						"Basic d2ViOkhlbWxpZzEyMyE=");
-			},
-			success : function(result) {
-				contentDiv.html(result);
-				appendContent("solarinfo");
-				const date = new Date();  
-				$("#month_col").html(date.toLocaleString('sv-SE', { month: 'long' }))
-				$.get("../rest/api/solar/overview", function(result) {
-					appendTable("solarinfo","<tr><td>"+formatPower(result.currentPower.power)+"</td><td>"+formatPower(result.lastDayData.energy)+"/h</td><td>"+formatPower(result.lastMonthData.energy)+"/h</td></tr>")
-					console.log(result);
+		$
+				.ajax({
+					url : "../OWManager-0.0.1-SNAPSHOT/rest/svg/heating",
+					beforeSend : function(xhr) {
+						xhr.setRequestHeader("Authorization",
+								"Basic d2ViOkhlbWxpZzEyMyE=");
+					},
+					error : function(xhr, status, error) {
+						contentDiv.html(error);
+					},
+					success : function(result) {
+						contentDiv.html(result);
+						appendContent("solarinfo");
+						const date = new Date();
+						$("#month_col").html(date.toLocaleString('sv-SE', {
+							month : 'long'
+						}))
+						$
+								.get(
+										"../rest/api/solar/overview",
+										function(result) {
+											appendTable(
+													"solarinfo",
+													"<tr><td>"
+															+ formatPower(result.currentPower.power)
+															+ "</td><td>"
+															+ formatPower(result.lastDayData.maxPower)
+															+ "</td><td>"
+															+ formatNullable(result.lastDayData.productionStart)
+															+ "</td><td>"
+															+ formatNullable(result.lastDayData.productionEnd)
+															+ "</td><td>"
+															+ formatPower(result.lastDayData.energy)
+															+ "/h</td><td>"
+															+ formatPower(result.lastMonthData.energy)
+															+ "/h</td></tr>")
+
+										});
+					}
 				});
-			},
-			error : function(xhr, status, error) {
-				contentDiv.html(error);
-			}
-		});
-		
+
 		dataFetched = true;
 	}
 }
 function formatPower(power) {
-	if (power>1000){
-		return parseFloat(power/1000).toPrecision(3) +" kW";
-	}
-	else return power + " W";
+	if (power > 1000) {
+		return parseFloat(power / 1000).toPrecision(3) + " kW";
+	} else
+		return power + " W";
 }
-	function formatDate(date) {
+function formatNullable(string) {
+	if (typeof string == 'undefined') {
+		return "";
+	} else
+		return string;
+}
+function formatDate(date) {
 	var day = (date.getDate() < 10 ? '0' : '') + date.getDate();
 	var month = (date.getMonth() < 9 ? '0' : '') + (date.getMonth() + 1);
 	var hours = (date.getHours() < 10 ? '0' : '') + date.getHours();
@@ -241,13 +268,12 @@ function drawContent() {
 	// Drawing content
 	if (content == 'chartByID') {
 		showSlider();
-		drawChartJS(
-				"temperature/chart/byid/"
-						+ request + '/' + time + "%20MINUTE");
+		drawChartJS("temperature/chart/byid/" + request + '/' + time
+				+ "%20MINUTE");
 	} else if (content == 'chartByType') {
 		showSlider();
-		drawChartJS("temperature/chart/bytype/"
-				+ request + "/" + time + "%20MINUTE");
+		drawChartJS("temperature/chart/bytype/" + request + "/" + time
+				+ "%20MINUTE");
 	} else if (content == 'OutsideHistory') {
 		hideSlider();
 		drawChartJS("minavgmax/" + request);
@@ -259,11 +285,11 @@ function drawContent() {
 		drawOverview();
 	} else if (content == 'meterChart') {
 		showSlider();
-		drawChartJS("meter/chart/byinterval/"
-				+ request + "/" + time + "%20MINUTE");
-	}else if (content == 'meterYearChart') {
+		drawChartJS("meter/chart/byinterval/" + request + "/" + time
+				+ "%20MINUTE");
+	} else if (content == 'meterYearChart') {
 		hideSlider();
-		drawChartJS("meter/chart/years/"+ request +"/-1");
+		drawChartJS("meter/chart/years/" + request + "/-1");
 	} else if (content == 'rainChart') {
 		hideSlider();
 		drawChartJS("rain/ChartJSConfig/1 MONTH");
@@ -272,19 +298,19 @@ function drawContent() {
 		drawRainHistory();
 	} else if (content == 'mowerMap') {
 		showSlider();
-		drawMap(restApiHome+"mower/coordiantes/Roberta/"
-				+ time + "%20MINUTE");
-	}else if (content == 'groundwaterChart') {
+		drawMap(restApiHome + "mower/coordiantes/Roberta/" + time + "%20MINUTE");
+	} else if (content == 'groundwaterChart') {
 		hideSlider();
-		drawChartJS("groundwater/chart/"+request);
-	}else if (content == 'solarPowerChart') {
+		drawChartJS("groundwater/chart/" + request);
+	} else if (content == 'solarPowerChart') {
 		hideSlider();
 		drawChartJS("solar/chart/today");
 	}
 
 	// Enable/disable Timer
 	clearInterval(timer);
-	if (content != 'OutsideHistory' && content != 'groundwaterChart' && content != 'meterYearChart') {
+	if (content != 'OutsideHistory' && content != 'groundwaterChart'
+			&& content != 'meterYearChart') {
 		timer = setInterval(drawContentTimer, 60000);
 	}
 

@@ -65,7 +65,7 @@ var checkHash = function() {
 		drawContentWith("meterYearChart", "Inkommande vatten", "INCOMING_WATER");
 		break;
 	case "#solar_power":
-			drawContentWith("solarPowerChart", "Sol effekt", null);
+			drawContentWith("solarPowerChart", "Solcellerna i dag", "TODAY");
 			break;
 	default:
 		drawContentWith('tanks', '', null);

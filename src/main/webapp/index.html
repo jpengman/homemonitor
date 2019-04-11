@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0 user-scalable=no">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0 user-scalable=no">
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <meta name=apple-mobile-web-app-status-bar-style content=black>
 <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
@@ -20,8 +21,9 @@
 #content {
 	height: 100%;
 }
+
 #month_col {
-  text-transform: capitalize;
+	text-transform: capitalize;
 }
 </style>
 
@@ -71,12 +73,12 @@
 							class="dropdown-item" href="#rain_acc">Regn Graf</a> <a
 							class="dropdown-item" href="#rain_history">Regn historik</a>
 					</div></li>
-					<li class="nav-item dropdown"><a
+				<li class="nav-item dropdown"><a
 					class="nav-link dropdown-toggle" data-toggle="dropdown"
-					data-target="dropdown_outside" href="#">Solceller<span
+					data-target="dropdown_sun" href="#">Solceller<span
 						class="caret"></span></a>
-					<div class="dropdown-menu" aria-labelledby="dropdown_outside">
-						<a class="dropdown-item" href="#solar_power">Soleffekt</a> 
+					<div class="dropdown-menu" aria-labelledby="dropdown_sun">
+						<a class="dropdown-item" href="#solar_power">I dag</a>
 					</div></li>
 				<li class="nav-item dropdown"><a
 					class="nav-link dropdown-toggle" data-toggle="dropdown"
@@ -96,7 +98,7 @@
 		</div>
 	</nav>
 	<!--Main View  -->
-	<div id="main_view" class="container text-center">
+	<div id="main_view" class="container-fluid text-center">
 		<h5 id="content_header"></h5>
 		<div id="content" style.display="none"></div>
 
@@ -129,10 +131,13 @@
 		<table id="tmp_solarinfo" class="table table-sm small">
 			<thead>
 				<tr>
-					<th scope="col" colspan="3">Solcellerna</th>
+					<th scope="col" colspan="6">Solcellerna</th>
 				</tr>
 				<tr>
-					<th scope="col">Aktuell effekt</th>
+					<th scope="col">Effekt</th>
+					<th scope="col">Max</th>
+					<th scope="col">Start</th>
+					<th scope="col">Stop</th>
 					<th scope="col">I dag</th>
 					<th scope="col" id="month_col"></th>
 				</tr>
