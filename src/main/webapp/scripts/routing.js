@@ -68,7 +68,7 @@ var checkHash = function() {
 			drawContentWith("solarPowerChart", "Solcellerna i dag", "TODAY");
 			break;
 	default:
-		drawContentWith('tanks', '', null);
+		drawContentWith('start', '', null);
 		break;
 	}
 	if ($('#navbarNavAltMarkup').is(":visible")) {

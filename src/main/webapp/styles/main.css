@@ -1,0 +1,10 @@
+@CHARSET "UTF-8";
+#templates {
+	display: none
+}
+#content {
+	height: 100%;
+}
+#month_col {
+	text-transform: capitalize;
+}
