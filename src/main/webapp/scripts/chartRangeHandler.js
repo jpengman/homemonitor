@@ -1,9 +1,14 @@
 /**
  * Handles the Chart range slider
  */
-function showSlider(){
+
+function showSlider(minutes){
+	if (minutes == null) {
+		minutes=1440;
+	}
 	document.getElementById("range_output").style.display = 'block';
-	document.getElementById("chart_range").style.display = 'block';	
+	document.getElementById("chart_range").style.display = 'block';
+	document.getElementById("chart_range").max = minutes;
 }
 function hideSlider(){
 	document.getElementById("range_output").style.display = 'none';

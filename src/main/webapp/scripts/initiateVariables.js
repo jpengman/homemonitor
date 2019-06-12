@@ -24,3 +24,9 @@ var dataFetched= false;
 var clean=false;
 var jsonData = '';
 var myChart=null;
+var map = null;
+var mowerPath=null;
+var mowerPos=null;
+var infowindow = new google.maps.InfoWindow({
+	content : ""
+});
