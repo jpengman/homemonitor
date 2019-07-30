@@ -156,7 +156,10 @@ function drawStartPage() {
 															+ formatPower(result.lastDayData.energy)
 															+ "/h</td><td>"
 															+ formatPower(result.lastMonthData.energy)
-															+ "/h</td></tr>")
+															+ "/h</td></tr>");
+											
+											$("#sunUp").html(result.sunriseSunset.sunrise);
+											$("#sunDown").html(result.sunriseSunset.sunset);
 										});
 						$.get(restApiHome + "rain/history", function(result) {
 							appendTarget("rain_history", "start_right");

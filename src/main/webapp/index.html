@@ -15,7 +15,7 @@
 	<link rel="stylesheet" href="styles/slider.css">
 	<link rel="stylesheet" href="styles/main.css">
 
-	<script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+	<script defer src="https://use.fontawesome.com/releases/v5.9.0/js/all.js"></script>
 
 	</style>
 	<title>Home Monitor</title>
@@ -26,10 +26,12 @@
 	<script type="text/javascript" src="https://www.google.com/jsapi"></script>
 	<!-- Navbar -->
 	<nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
 			aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
+		<i class="fas fa-bell"></i>
 		<a class="navbar-brand" href="#start">Anviken</a>
 		<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
 			<ul class="navbar-nav">
@@ -77,6 +79,7 @@
 
 			</ul>
 		</div>
+
 	</nav>
 	<!--Main View  -->
 	<div id="main_view" class="container-fluid text-center">
@@ -108,11 +111,14 @@
 			<tbody>
 			</tbody>
 		</table>
-
 		<table id="tmp_solarinfo" class="table table-sm small">
 			<thead>
 				<tr>
-					<th scope="col" colspan="6">Solcellerna</th>
+					<th scope="col"><i class="far fa-sun text-warning"></i><i class="fas fa-arrow-up"></i><small
+							id="sunUp"></small></th>
+					<th scope="col" colspan="4">Solcellerna</th>
+					<th scope="col"><i class="far fa-sun text-warning"></i><i class="fas fa-arrow-down"></i><small
+							id="sunDown"></small></th>
 				</tr>
 				<tr>
 					<th scope="col">Effekt</th>
@@ -129,16 +135,14 @@
 
 
 		<div id="tmp_start" class="row">
-			<div id="start_left" class="col-sm">
-			</div>
-			<div id="start_right" class="col-sm">
-			</div>
+			<div id="start_left" class="col-sm"></div>
+			<div id="start_right" class="col-sm"></div>
 		</div>
 
 		<table id="tmp_rain_history" class="table table-sm small">
 			<thead>
 				<tr>
-					<th scope="col" colspan="4">Regn</th>
+					<th scope="col" colspan="4">Regn <i class="fas fa-cloud-rain"></i></th>
 				</tr>
 				<tr>
 					<th scope="col">Idag</th>
@@ -172,7 +176,8 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/moment.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"
 		integrity="sha256-CfcERD4Ov4+lKbWbYqXD6aFM9M51gN4GUEtDhkWABMo=" crossorigin="anonymous"></script>
-	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDfKxPwUbb3CvFjOzB8pIjQPPsb2kMtVoA"></script>
+	<script type="text/javascript"
+		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDfKxPwUbb3CvFjOzB8pIjQPPsb2kMtVoA"></script>
 	<script src="scripts/initiateVariables.js"></script>
 	<script src="scripts/utils.js"></script>
 	<script src="scripts/chartRangeHandler.js"></script>
