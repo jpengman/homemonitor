@@ -3,7 +3,7 @@
  * Handles page routing using location hash
  */
 
-var checkHash = function () {
+function checkHash() {
 	clean = true;
 	switch (location.hash) {
 		case "#stove":
@@ -44,7 +44,7 @@ var checkHash = function () {
 			drawContentWith(METER_YEAR_CHART, 'Antalet starter för Värmepumpen', 'HP_STARTS-DAILY');
 			break;
 		case "#rain_acc":
-			drawContentWith(RAIN_CHART, 'Ackumulerad mängd regn', 2);
+			drawContentWith(RAIN_CHART, 'Ackumulerad mängd regn', null);
 			break;
 		case "#rain_history":
 			drawContentWith(RAIN_HISTORY, 'Regn historik', null);
@@ -67,6 +67,9 @@ var checkHash = function () {
 			break;
 		case "#solar_power":
 			drawContentWith(SOLARPOWER_CHART, "Solcellerna i dag", "TODAY");
+			break;
+		case HASH_SOLAR_POWER_YESTERDAY:
+			drawContentWith(SOLARPOWER_CHART, "Solcellerna i går", "YESTERDAY");
 			break;
 		case "#solar_energy":
 			drawContentWith(METER_CHART, "Solenergi", "SOLAR_ENERGY_DAY");

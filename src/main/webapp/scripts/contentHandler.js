@@ -2,11 +2,14 @@
 /**
  * Handles the modification of the Content tag
  */
-const NEED_SLIDER = [CHART_BY_ID, CHART_BY_TYPE, METER_CHART];
+const TIME_SLIDER = [CHART_BY_ID, CHART_BY_TYPE];
+const TIMEPERIOD_SLIDER = [METER_CHART, RAIN_CHART, SOLARPOWER_CHART];
 function drawContent() {
 	// Drawing content
-	if (NEED_SLIDER.includes(content)) {
+	if (TIME_SLIDER.includes(content)) {
 		showSlider();
+	} else if (TIMEPERIOD_SLIDER.includes(content)) {
+		showSlider(TIME_PERIOD);
 	} else {
 		hideSlider();
 	}
@@ -28,13 +31,16 @@ function drawContent() {
 			drawOverview();
 			break;
 		case METER_CHART:
-			drawChartJS("meter/chart/byinterval/" + request + "/1%20MONTH");
+			var tp = getTimeperiodType(timeperiod, false);
+			url = "meter/barchart/bytimeperiodtype/" + request + "/" + tp;
+			drawChartJS(url);
 			break;
 		case METER_YEAR_CHART:
 			drawChartJS("meter/chart/years/" + request + "/-1");
 			break
 		case RAIN_CHART:
-			drawChartJS("rain/ChartJSConfig/1 MONTH");
+			var tp = getTimeperiodType(timeperiod, false);
+			drawChartJS("rain/ChartJSConfig/bytimeperiodType/" + tp);
 			break;
 		case RAIN_HISTORY:
 			drawRainHistory();
@@ -47,7 +53,12 @@ function drawContent() {
 			drawChartJS("groundwater/chart/" + request);
 			break;
 		case SOLARPOWER_CHART:
-			drawChartJS("solar/chart/today");
+			var tp = getTimeperiodType(timeperiod, false);
+			drawChartJS("solar/chart/timeperiodtype/" + request);
+			break;
+		case SOLARPOWER_CHART_DATE:
+
+			drawChartJS("solar/chart/date" + getDatefromDateObject(request));
 	}
 
 
@@ -74,6 +85,15 @@ function drawContentWith(contentIn, contentHeaderIn, requestIn) {
 	request = requestIn;
 	dataFetched = false;
 	drawContent();
+}
+function getDatefromDateObject(date, modifier) {
+	var modified = new Date(date);
+	modified.setDate(modified.getDate() + modifier);
+	var month = modified.getMonth() + 1;
+	return modified.getFullYear() + "-" + month + "-" + modified.getDate();
+}
+function getDatefromDateObject(date) {
+	return getDatefromDateObject(date, 0);
 }
 
 function drawContentTimer() {
